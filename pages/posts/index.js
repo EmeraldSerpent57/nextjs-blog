@@ -1,9 +1,10 @@
 // our-domain.com/posts/
 import React from "react";
 import AllPosts from "../../components/posts/all-posts";
+import { getAllPosts } from "../../helpers/posts-util";
 
 
-//initially a dummy array 
+/*initially a dummy array 
 const DUMMY_POSTS = [
   //every post object should contain a title, image, excerpt, date, and slug property
   {
@@ -37,15 +38,30 @@ const DUMMY_POSTS = [
     date: '2023-02-23',
   },
 ];
+*/
 
 //this page will output all our posts
-function AllPostsPage() {
+function AllPostsPage(props) {
     return (
         <>
         {/*Will need to prepare the posts that should be used */}
-        <AllPosts posts={DUMMY_POSTS} />
+        <AllPosts posts={props.posts} />
         </>
     );
+}
+
+//fetch posts from the local database
+export function getStaticProps() {
+    //get all the posts
+    const allPosts = getAllPosts();
+
+    //return the object with props key
+    return {
+        props: {
+            posts: allPosts
+        },
+        //could revalidate if needed
+    };
 }
 
 export default AllPostsPage;

@@ -2,8 +2,9 @@
 import React from "react";
 import Hero from "../components/homepage/hero";
 import FeaturedPosts from "../components/homepage/featured-posts";
+import { getFeaturedPosts } from "../helpers/posts-util";
 
-//initially a dummy array 
+/*initially a dummy array 
 const DUMMY_POSTS = [
   //every post object should contain a title, image, excerpt, date, and slug property
   {
@@ -37,14 +38,29 @@ const DUMMY_POSTS = [
     date: '2023-02-23',
   },
 ];
+*/
 
-function HomePage() {
+function HomePage(props) {
     return (
         <>
         <Hero />
-        <FeaturedPosts posts={DUMMY_POSTS} />       {/*remember to sets the posts prop*/}
+        <FeaturedPosts posts={props.posts} />       {/*remember to sets the posts prop*/}
         </>
     );
+}
+
+//function to get data from the local database. Using getStaticProps instead of getServersideProps because our posts are not updating frequently
+export function getStaticProps() {
+    //get the featured posts
+    const featuredPosts = getFeaturedPosts();
+
+    //return your object with props
+    return {
+        props: {
+            posts: featuredPosts
+        },
+        //can revalidate if necessary
+    }
 }
 
 export default HomePage;

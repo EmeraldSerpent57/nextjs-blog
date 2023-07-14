@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 //this is a file that has extra utility functionality for fetching the post data and extracting metadata from the md files
 //will be working with the file system
 import fs from 'fs';
