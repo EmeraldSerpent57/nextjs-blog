@@ -10,36 +10,41 @@ import matter from 'gray-matter';
 //path we are passing so the directory can be read 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
+export function getPostFiles() {
+  //read all the content from a directory with the fs module
+  return fs.readdirSync(postsDirectory); //this will parse all posts synchronously and read the entire content of the directory
+  //this returns an array of strings (filenames), now extract the metadata
+}
+
 //helper function to extract the metadata and slug returned in the filenames from readdirSync
-function getPostData(fileName) {
-    //file path
-    const filePath = path.join(postsDirectory, fileName);
+export function getPostData(postIdentifier) {
+  //create post slug
+  const postSlug = postIdentifier.replace(/\.md$/, ""); //removes the file extension
 
-    //want to get the content of  file
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
+  //file path
+  const filePath = path.join(postsDirectory, `${postSlug}.md`); //this will always create a filename if it doesnt have one
 
-    //use gray matter to extract the metadata
-    const { data, content } = matter(fileContent);
+  //want to get the content of  file
+  const fileContent = fs.readFileSync(filePath, "utf-8");
 
-    //create post slug
-    const postSlug = fileName.replace(/\.md$/, '')      //removes the file extension
+  //use gray matter to extract the metadata
+  const { data, content } = matter(fileContent);
 
-    const postData = {
-        //contains the data read from a single post in the md file
-        slug: postSlug,
-        ...data, 
-        content: content,
-    };
+  const postData = {
+    //contains the data read from a single post in the md file
+    slug: postSlug,
+    ...data,
+    content: content,
+  };
 
-    //return the post data
-    return postData;
+  //return the post data
+  return postData;
 }
 
 //function to fetch all posts
 export function getAllPosts() {
-    //read all the content from a directory with the fs module
-    const postFiles = fs.readdirSync(postsDirectory);       //this will parse all posts synchronously and read the entire content of the directory
-    //this returns an array of strings (filenames), now extract the metadata
+    //get all the post file names
+    const postFiles = getPostFiles();
 
     //need to map the array of postFiles in to an object of postData
     const allPosts = postFiles.map(postFile => {
