@@ -4,6 +4,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import classes from "./post-content.module.css";
 import PostHeader from "./post-header";
+import Image from "next/image";
 
 /*
 const DUMMY_POST = {
@@ -17,11 +18,54 @@ const DUMMY_POST = {
 */
 
 function PostContent(props) {
-    //extract our posts from the props
-    const { post } = props;
-    //create the imagePath
-    const imagePath = `/images/posts/${post.slug}/${post.image}`;
+  //extract our posts from the props
+  const { post } = props;
+  //create the imagePath
+  const imagePath = `/images/posts/${post.slug}/${post.image}`;
 
+  const customComponents = {
+    /*
+    img(image) {
+      return (
+        //render the image you want
+        <Image
+          src={`/images/posts/${post.slug}/${image.src}`}
+          alt={image.alt}
+          width={600}
+          height={300}
+        />
+        //we can use this code, and it works. But you will get alot of errors if you look at the source code because this image will be wrapped in some divs and then all of that will be wrapped in a paragraph tag
+      );
+    },
+    */
+    //instead of just overriding the image tag, we can dive in to all the paragraphs that are rendered. Not only each paragraph, but also the images
+    p(paragraph) {
+        //we return our own JSX element
+        //only want to override if we find an image that is rendered inside of the paragraph
+        const { node } = paragraph;     //extracting the actual node that will be rendered from reactmd from paragraph
+    
+        //check if the first child of that paragraph node is an image
+        if (node.children[0].tagName === 'img') {
+            //access your image through node children
+            const image = node.children[0];
+            //then override what react md wants to render
+            return (
+              <div className={classes.image}>
+                <Image
+                  src={`/images/posts/${post.slug}/${image.properties.src}`}
+                  alt={image.alt}
+                  width={600}
+                  height={300}
+                />
+              </div>
+            );
+        }
+        //if we dont make it in to this if check then return a regular paragraph, which is what react md would have rendered otherwise
+        return (
+            <p>{paragraph.children}</p>
+        );
+    },
+  };
 
   return (
     //the post content will eventually be in markdown translated to ReactJSX elements
@@ -29,7 +73,10 @@ function PostContent(props) {
       <article className={classes.content}>
         {/*Need to set th title and image props because thats what we extract in PostHeader */}
         <PostHeader title={post.title} image={imagePath} />
-        <ReactMarkdown>{post.content}</ReactMarkdown>
+        {/*Need to override how react md treats md content like images*/}
+        <ReactMarkdown components={customComponents}>
+          {post.content}
+        </ReactMarkdown>
       </article>
     </>
   );
