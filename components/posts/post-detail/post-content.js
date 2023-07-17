@@ -1,7 +1,10 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/prop-types */
 //this will be a complex file
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import classes from "./post-content.module.css";
 import PostHeader from "./post-header";
 import Image from "next/image";
@@ -40,30 +43,42 @@ function PostContent(props) {
     */
     //instead of just overriding the image tag, we can dive in to all the paragraphs that are rendered. Not only each paragraph, but also the images
     p(paragraph) {
-        //we return our own JSX element
-        //only want to override if we find an image that is rendered inside of the paragraph
-        const { node } = paragraph;     //extracting the actual node that will be rendered from reactmd from paragraph
-    
-        //check if the first child of that paragraph node is an image
-        if (node.children[0].tagName === 'img') {
-            //access your image through node children
-            const image = node.children[0];
-            //then override what react md wants to render
-            return (
-              <div className={classes.image}>
-                <Image
-                  src={`/images/posts/${post.slug}/${image.properties.src}`}
-                  alt={image.alt}
-                  width={600}
-                  height={300}
-                />
-              </div>
-            );
-        }
-        //if we dont make it in to this if check then return a regular paragraph, which is what react md would have rendered otherwise
+      //only want to override if we find an image that is rendered inside of the paragraph
+      const { node } = paragraph; //extracting the actual node that will be rendered from reactmd from paragraph
+
+      //check if the first child of that paragraph node is an image
+      if (node.children[0].tagName === "img") {
+        //access your image through node children
+        const image = node.children[0];
+        //then override what react md wants to render, and return our own JSX element
         return (
-            <p>{paragraph.children}</p>
+          <div className={classes.image}>
+            <Image
+              src={`/images/posts/${post.slug}/${image.properties.src}`}
+              alt={image.alt}
+              width={600}
+              height={300}
+            />
+          </div>
         );
+      }
+      //if we dont make it in to this if check then return a regular paragraph, which is what react md would have rendered otherwise
+      return <p>{paragraph.children}</p>;
+    },
+    //override how the code snippets are rendered
+    code(code) {
+      //use object destructuring to get the language and the complete child value from the code
+      const { className, children } = code;
+      //set the language
+      const language = className.split("-")[1]; // className is something like language-js => We need the "js" part here
+      //return our own JSX element
+      return (
+        <SyntaxHighlighter
+          style={atomDark}
+          language={language}
+          children={children}
+        />
+      );
     },
   };
 
