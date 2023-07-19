@@ -7,23 +7,26 @@ prepare your page not just visually for your users, but also with the correct me
 */
 
 import React from "react";
-import Document, {Html, Head, Main, NextScript} from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 //will be a class based component
 
 class MyDocument extends Document {
-    //class based components always need render methods
-    render() {
-        return (
-            //structure is specific!!!
-            <Html lang="en">
-                <Head />
-                <body>
-                    <Main />
-                    <NextScript />
-                </body>
-            </Html>
-        );
-    }
+  //class based components always need render methods
+  render() {
+    return (
+      //structure is specific!!!
+      <Html lang="en">
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+          <div id="notifications">
+            {/*will use this div to portal our notification component in to this place when its being rendered*/}
+          </div>
+        </body>
+      </Html>
+    );
+  }
 }
 
 export default MyDocument;
