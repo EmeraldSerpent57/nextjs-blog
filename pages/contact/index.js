@@ -1,6 +1,11 @@
 // our-domain.com/contact/
 import React from "react";
+import ContactForm from "../../components/contact/contact-form";
 
-function ContactPage() {}
+function ContactPage() {
+    return (
+        <ContactForm />
+    );
+}
 
 export default ContactPage;
