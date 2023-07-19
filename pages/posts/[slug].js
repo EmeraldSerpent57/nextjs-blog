@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 // our-domain.com/posts/[slug]
 import React from "react";
+import Head from "next/head";
 import PostContent from "../../components/posts/post-detail/post-content";
 import { getPostData, getPostFiles } from "../../helpers/posts-util";
 
@@ -7,7 +9,16 @@ import { getPostData, getPostFiles } from "../../helpers/posts-util";
 function PostDetailPage(props) {
   return (
     //this component will take care of outputting that post content
-    <PostContent post={props.post}/>
+    <>
+      <Head>
+        <title>{props.post.title}</title>
+        <meta
+          name="description"
+          content={props.post.excerpt}
+        />
+      </Head>
+      <PostContent post={props.post} />
+    </>
   );
 }
 

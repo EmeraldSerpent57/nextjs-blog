@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 // our-domain.com/posts/
 import React from "react";
+import Head from "next/head";
 import AllPosts from "../../components/posts/all-posts";
 import { getAllPosts } from "../../helpers/posts-util";
 
@@ -43,10 +45,14 @@ const DUMMY_POSTS = [
 //this page will output all our posts
 function AllPostsPage(props) {
     return (
-        <>
+      <>
+        <Head>
+          <title>All Blog Posts</title>
+          <meta name="description" content="A list of all programming related posts and tutorials." />
+        </Head>
         {/*Will need to prepare the posts that should be used */}
         <AllPosts posts={props.posts} />
-        </>
+      </>
     );
 }
 

@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 // our-domain.com/
 import React from "react";
+import Head from "next/head";
 import Hero from "../components/homepage/hero";
 import FeaturedPosts from "../components/homepage/featured-posts";
 import { getFeaturedPosts } from "../helpers/posts-util";
@@ -43,6 +45,10 @@ const DUMMY_POSTS = [
 function HomePage(props) {
     return (
         <>
+        <Head>
+          <title>Welcome To My Blog!</title>
+          <meta name="description" content="My personal blog for programming and web development." />
+        </Head>
         <Hero />
         <FeaturedPosts posts={props.posts} />       {/*remember to sets the posts prop*/}
         </>
