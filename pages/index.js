@@ -4,7 +4,7 @@ import React from "react";
 import Head from "next/head";
 import Hero from "../components/homepage/hero";
 import FeaturedPosts from "../components/homepage/featured-posts";
-import { getFeaturedPosts } from "../helpers/posts-util";
+import { getFeaturedPosts } from "../lib/posts-util";
 
 /*initially a dummy array 
 const DUMMY_POSTS = [
@@ -43,30 +43,34 @@ const DUMMY_POSTS = [
 */
 
 function HomePage(props) {
-    return (
-        <>
-        <Head>
-          <title>Welcome To My Blog!</title>
-          <meta name="description" content="My personal blog for programming and web development." />
-        </Head>
-        <Hero />
-        <FeaturedPosts posts={props.posts} />       {/*remember to sets the posts prop*/}
-        </>
-    );
+  return (
+    <>
+      <Head>
+        <title>Welcome To My Blog!</title>
+        <meta
+          name="description"
+          content="My personal blog for programming and web development."
+        />
+      </Head>
+      <Hero />
+      <FeaturedPosts posts={props.posts} />{" "}
+      {/*remember to sets the posts prop*/}
+    </>
+  );
 }
 
 //function to get data from the local database. Using getStaticProps instead of getServersideProps because our posts are not updating frequently
 export function getStaticProps() {
-    //get the featured posts
-    const featuredPosts = getFeaturedPosts();
+  //get the featured posts
+  const featuredPosts = getFeaturedPosts();
 
-    //return your object with props
-    return {
-        props: {
-            posts: featuredPosts
-        },
-        //can revalidate if necessary
-    }
+  //return your object with props
+  return {
+    props: {
+      posts: featuredPosts,
+    },
+    //can revalidate if necessary
+  };
 }
 
 export default HomePage;

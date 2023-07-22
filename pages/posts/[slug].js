@@ -3,7 +3,7 @@
 import React from "react";
 import Head from "next/head";
 import PostContent from "../../components/posts/post-detail/post-content";
-import { getPostData, getPostFiles } from "../../helpers/posts-util";
+import { getPostData, getPostFiles } from "../../lib/posts-util";
 
 //this page will output the content of a selected post
 function PostDetailPage(props) {
@@ -12,10 +12,7 @@ function PostDetailPage(props) {
     <>
       <Head>
         <title>{props.post.title}</title>
-        <meta
-          name="description"
-          content={props.post.excerpt}
-        />
+        <meta name="description" content={props.post.excerpt} />
       </Head>
       <PostContent post={props.post} />
     </>

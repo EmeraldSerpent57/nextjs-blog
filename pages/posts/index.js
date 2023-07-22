@@ -3,8 +3,7 @@
 import React from "react";
 import Head from "next/head";
 import AllPosts from "../../components/posts/all-posts";
-import { getAllPosts } from "../../helpers/posts-util";
-
+import { getAllPosts } from "../../lib/posts-util";
 
 /*initially a dummy array 
 const DUMMY_POSTS = [
@@ -44,30 +43,33 @@ const DUMMY_POSTS = [
 
 //this page will output all our posts
 function AllPostsPage(props) {
-    return (
-      <>
-        <Head>
-          <title>All Blog Posts</title>
-          <meta name="description" content="A list of all programming related posts and tutorials." />
-        </Head>
-        {/*Will need to prepare the posts that should be used */}
-        <AllPosts posts={props.posts} />
-      </>
-    );
+  return (
+    <>
+      <Head>
+        <title>All Blog Posts</title>
+        <meta
+          name="description"
+          content="A list of all programming related posts and tutorials."
+        />
+      </Head>
+      {/*Will need to prepare the posts that should be used */}
+      <AllPosts posts={props.posts} />
+    </>
+  );
 }
 
 //fetch posts from the local database
 export function getStaticProps() {
-    //get all the posts
-    const allPosts = getAllPosts();
+  //get all the posts
+  const allPosts = getAllPosts();
 
-    //return the object with props key
-    return {
-        props: {
-            posts: allPosts
-        },
-        //could revalidate if needed
-    };
+  //return the object with props key
+  return {
+    props: {
+      posts: allPosts,
+    },
+    //could revalidate if needed
+  };
 }
 
 export default AllPostsPage;

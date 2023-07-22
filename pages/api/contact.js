@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 //need to have the API routes here so we dont expose it on the client side
 //api/contact
 
@@ -32,13 +33,14 @@ async function handler(req, res) {
     };
 
     let client;
+
+    //set up a connection string to use the environment variables in next.config
+    const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_cluster}.8yemkkd.mongodb.net/?retryWrites=true&w=majority`;
    
     //wrap in a try/catch block just in case it fails
     try {
     //connect to mongodb to store your info
-    client = await MongoClient.connect(
-      "mongodb+srv://amvoce1221:dcFBMkO9qHQfYagk@cluster0.8yemkkd.mongodb.net/?retryWrites=true&w=majority"
-    );
+    client = await MongoClient.connect(connectionString);
     } catch {
       //dont continue with execution
       res.status(500).json({message: 'Could not connect to database.'})
@@ -48,7 +50,7 @@ async function handler(req, res) {
     //wrap in a try/catch block just in case it fails
     try {
     //use the connection to insert data
-    const db = client.db('my-blog');
+    const db = client.db(`${process.env.mongodb_database}`);
     // use the db to enter one new document in to a collection
     const result = await db.collection('contact-messages').insertOne(newMessage);
     newMessage.id = result.insertedId;  //to automatically generate an id for each message
