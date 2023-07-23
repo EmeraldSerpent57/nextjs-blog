@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import classes from './all-posts.module.css';
 import PostsGrid from "./posts-grid";

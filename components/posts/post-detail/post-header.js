@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import classes from './post-header.module.css';
 import Image from "next/legacy/image";

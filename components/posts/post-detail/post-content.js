@@ -3,8 +3,12 @@
 //this will be a complex file
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+//a basic import from syntax highlighter will include all possible code options, so we want to narrow it down so the file isnt too big. We can use the light version
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+//import the languages we want to support with syntax highlighter
+import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript'
+import css from "react-syntax-highlighter/dist/cjs/languages/prism/css";
 import classes from "./post-content.module.css";
 import PostHeader from "./post-header";
 import Image from "next/image";
@@ -19,6 +23,10 @@ const DUMMY_POST = {
   //will need to translate this string from md to JSX
 };
 */
+
+//then import the languages you want to register
+SyntaxHighlighter.registerLanguage('js', js);
+SyntaxHighlighter.registerLanguage("css", css);
 
 function PostContent(props) {
   //extract our posts from the props
