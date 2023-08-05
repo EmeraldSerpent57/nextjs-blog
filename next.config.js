@@ -41,3 +41,12 @@ module.exports = (phase) => {
     },
   };
 };
+
+/*if you have this project in a public repo, where others have access
+to it, keep in mind that anyone will be able to see and read this file. 
+You may only want to include this config file in your github repo if 
+you can rule out that unauthorized people are able to view the file.
+If you cant rule that out, you should not include this config file in
+your repo, but instead for production, you should set environment 
+variables through the environment variables feature that vercel offers
+(all hosting providers will offer this). */

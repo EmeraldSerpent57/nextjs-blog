@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Image from "next/image";
 import classes from "./hero.module.css";
@@ -26,9 +25,3 @@ function Hero() {
 }
 
 export default Hero;
-
-/* What this should include:
-1. Hero image (myself)
-2. Name
-3. Short paragraph about myself and the blog
-*/
