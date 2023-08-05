@@ -8,16 +8,17 @@ function Hero() {
       <section className={classes.hero}>
         <div className={classes.image}>
           <Image
-            src="/images/site/IMG_1210.JPG"
+            src="/images/site/blogging.jpeg"
             alt="Alaina Harrison"
             width={300}
             height={300}
           />
         </div>
-        <h1>Hello there, I'm Alaina!</h1>
+        <h1>Welcome to My Blog!</h1>
         <p>
-          I blog about web development! Especially frontend frameworks like
-          React and Angular!
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Massa id
+          neque aliquam vestibulum morbi blandit cursus risus.
         </p>
       </section>
     </>
