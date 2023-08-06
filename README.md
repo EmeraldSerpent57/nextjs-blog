@@ -15,4 +15,4 @@ This is a useable template website for a personal blog. It comes complete with a
 
 ## Launch
 
-Visit this site: [Next Blog]()
+Visit this site: [Next Blog](https://nextjs-blog-rho-ruby-71.vercel.app)
