@@ -3,7 +3,7 @@ title: "My Self Care Journey"
 date: "2020-08-23"
 image: self-care-cover.jpeg
 excerpt: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-isFeatured: true
+isFeatured: false
 ---
 
 ## Blandit Turpis
